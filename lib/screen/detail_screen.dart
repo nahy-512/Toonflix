@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -35,24 +36,27 @@ class DetailScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container( // 이미지
-                width: 250,
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 15,
-                      offset: Offset(10, 10),
-                      color: Colors.black.withOpacity(0.3),
-                    )
-                  ],
-                ),
-                child: Image.network(
-                  thumb,
-                  headers: const {
-                    'Referer': 'https://comic.naver.com',
-                  },
+              Hero(
+                tag: id,
+                child: Container( // 이미지
+                  width: 250,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        offset: Offset(10, 10),
+                        color: Colors.black.withOpacity(0.3),
+                      )
+                    ],
+                  ),
+                  child: Image.network(
+                    thumb,
+                    headers: const {
+                      'Referer': 'https://comic.naver.com',
+                    },
+                  ),
                 ),
               ),
             ],
