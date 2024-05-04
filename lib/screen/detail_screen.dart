@@ -159,12 +159,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 future: episodes,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        for (var episode in snapshot.data!)
-                          Episode(episode: episode, webtoonId: widget.id),
-                      ],
-                    );
+                    return makeEpisodeList(snapshot);
                   }
                   return Container();
                 },
@@ -173,6 +168,22 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  ListView makeEpisodeList(AsyncSnapshot<List<WebtoonEpisodeModel>> snapshot) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: snapshot.data!.length,
+      itemBuilder: (context, index) {
+        var episode = snapshot.data![index];
+        return Episode(
+          webtoonId: widget.id,
+          episode: episode,
+        );
+      },
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
     );
   }
 }
