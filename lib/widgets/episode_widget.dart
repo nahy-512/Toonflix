@@ -1,18 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toonflix/models/retrofit/webtoon_episode.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../models/webtoon_episode_model.dart';
-
-class Episode extends StatelessWidget {
-  const Episode({
+class EpisodeItem extends StatelessWidget {
+  const EpisodeItem({
     super.key,
     required this.episode,
     required this.webtoonId,
   });
 
   final String webtoonId;
-  final WebtoonEpisodeModel episode;
+  final WebtoonEpisode episode;
 
   onButtonTap() async {
     await launchUrlString("https://comic.naver.com/webtoon/detail?titleId=$webtoonId&no=${episode.id}");

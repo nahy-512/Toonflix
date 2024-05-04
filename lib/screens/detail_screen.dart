@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toonflix/models/retrofit/webtoon_detail.dart';
+import 'package:toonflix/models/retrofit/webtoon_episode.dart';
 import 'package:toonflix/models/webtoon_detail_model.dart';
-import 'package:toonflix/models/webtoon_episode_model.dart';
+import 'package:toonflix/screens/main_repository.dart';
 import 'package:toonflix/services/api_service.dart';
 
 import '../widgets/episode_widget.dart';
@@ -22,8 +24,8 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
 
-  late Future<WebtoonDetailModel> webtoon;
-  late Future<List<WebtoonEpisodeModel>> episodes;
+  late Future<WebtoonDetail> webtoon;
+  late Future<List<WebtoonEpisode>> episodes;
   late SharedPreferences prefs;
   bool isLiked = false;
 
@@ -46,8 +48,8 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    webtoon = ApiService.getToonById(widget.id);
-    episodes = ApiService.getLatestEpisodesById(widget.id);
+    webtoon = MainRepository.getWebtoonDetail(widget.id);
+    episodes = MainRepository.getWebtoonEpisodes(widget.id);
     initPrefs();
   }
 
@@ -111,7 +113,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 15,
-                            offset: Offset(10, 10),
+                            offset: const Offset(10, 10),
                             color: Colors.black.withOpacity(0.3),
                           )
                         ],
@@ -171,13 +173,13 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  ListView makeEpisodeList(AsyncSnapshot<List<WebtoonEpisodeModel>> snapshot) {
+  ListView makeEpisodeList(AsyncSnapshot<List<WebtoonEpisode>> snapshot) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: snapshot.data!.length,
       itemBuilder: (context, index) {
         var episode = snapshot.data![index];
-        return Episode(
+        return EpisodeItem(
           webtoonId: widget.id,
           episode: episode,
         );

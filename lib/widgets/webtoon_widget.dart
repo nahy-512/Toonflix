@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:toonflix/screen/detail_screen.dart';
+import 'package:toonflix/screens/detail_screen.dart';
 
-class Webtoon extends StatelessWidget {
+class WebtoonItem extends StatelessWidget {
 
   final String title, thumb, id;
 
-  const Webtoon({super.key,
+  const WebtoonItem({super.key,
     required this.title,
     required this.thumb,
     required this.id
