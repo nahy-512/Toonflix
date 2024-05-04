@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -14,7 +15,6 @@ class Episode extends StatelessWidget {
   final WebtoonEpisodeModel episode;
 
   onButtonTap() async {
-    print("에피소드 클릭!");
     await launchUrlString("https://comic.naver.com/webtoon/detail?titleId=$webtoonId&no=${episode.id}");
   }
 
@@ -40,11 +40,14 @@ class Episode extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                episode.title,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
+              Expanded(
+                child: Text(
+                  episode.title,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const Icon(
