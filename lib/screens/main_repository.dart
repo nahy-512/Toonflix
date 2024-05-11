@@ -20,7 +20,8 @@ class MainRepository {
     }
   }
 
-  static Future<WebtoonDetail> getWebtoonDetail(
+  /// 웹툰 상세 정보 조회
+  Future<WebtoonDetail> getWebtoonDetail(
       String id) async {
     try {
       return await _webtoonApi.getWebtoonDetail(id);

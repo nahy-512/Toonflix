@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:toonflix/models/retrofit/webtoon.dart';
 import 'package:toonflix/screens/main_repository.dart';
 
+import '../models/retrofit/webtoon_detail.dart';
+
 class MainViewModel with ChangeNotifier {
   late final MainRepository _mainRepository;
 
@@ -22,4 +24,7 @@ class MainViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<WebtoonDetail> getWebtoonDetail(String id) async {
+    return await _mainRepository.getWebtoonDetail(id);
+  }
 }

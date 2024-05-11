@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toonflix/models/retrofit/webtoon_detail.dart';
 import 'package:toonflix/models/retrofit/webtoon_episode.dart';
-import 'package:toonflix/models/webtoon_detail_model.dart';
 import 'package:toonflix/screens/main_repository.dart';
-import 'package:toonflix/services/api_service.dart';
+import 'package:toonflix/screens/main_viewmodel.dart';
 
 import '../widgets/episode_widget.dart';
 
@@ -29,6 +29,8 @@ class _DetailScreenState extends State<DetailScreen> {
   late SharedPreferences prefs;
   bool isLiked = false;
 
+  late final MainViewModel _mainViewModel;
+
   Future initPrefs() async {
     // 사용자 저장소에 connection
     prefs = await SharedPreferences.getInstance();
@@ -45,14 +47,6 @@ class _DetailScreenState extends State<DetailScreen> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    webtoon = MainRepository.getWebtoonDetail(widget.id);
-    episodes = MainRepository.getWebtoonEpisodes(widget.id);
-    initPrefs();
-  }
-
   onHeartTap() async {
     final likedToons = prefs.getStringList('likedToons');
     if (likedToons != null) {
@@ -67,6 +61,20 @@ class _DetailScreenState extends State<DetailScreen> {
         isLiked = !isLiked;
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    episodes = MainRepository.getWebtoonEpisodes(widget.id);
+    initPrefs();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _mainViewModel = Provider.of<MainViewModel>(context);
+    webtoon = _mainViewModel.getWebtoonDetail(widget.id);
   }
 
   @override
