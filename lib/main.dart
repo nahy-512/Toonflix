@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toonflix/screens/home_screen.dart';
+import 'package:toonflix/screens/main_viewmodel.dart';
 
 void main() {
-  runApp(const App());
+  runApp(ChangeNotifierProvider( // 단일 Provider 정의
+    create: (_) => MainViewModel(),
+    child: const App(),
+  ));
 }
 
 class App extends StatelessWidget {
@@ -10,7 +15,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
         home: HomeScreen()
     );
   }

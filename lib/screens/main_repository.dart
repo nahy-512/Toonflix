@@ -6,10 +6,12 @@ import 'package:toonflix/services/retrofit_service.dart';
 
 import '../services/dio_service.dart';
 
+// static 대신 레포지토리 자체를 인스턴스로 만들어서 사용 (재활용이 필요한 경우)
 class MainRepository {
   static final WebtoonApi _webtoonApi = WebtoonApi(DioService().get());
 
-  static Future<List<Webtoon>> getTodayWebtoons() async {
+  /// 오늘의 웹툰 목록 조회
+  Future<List<Webtoon>> getTodayWebtoons() async {
     try {
       return await _webtoonApi.getTodayWebtoons();
     } catch (e) {
